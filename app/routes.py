@@ -76,14 +76,6 @@ def logout():
 @login_required
 def user(username):
     user = User.query.filter_by(username=username).first_or_404()
-<<<<<<< HEAD
-    posts = [
-        {'author': user, 'body': 'Test post #1'},
-        {'author': user, 'body': 'Test post #2'}
-    ]
-    form = EmptyForm()
-    return render_template('user.html', user=user, posts=posts, form=form)
-=======
     page = request.args.get('page', 1, type=int)
     posts = user.posts.order_by(Post.timestamp.desc()).paginate(
         page=page, per_page=app.config['POSTS_PER_PAGE'], error_out=False)
@@ -94,7 +86,6 @@ def user(username):
     form = EmptyForm()
     return render_template('user.html', user=user, posts=posts.items,
                            next_url=next_url, prev_url=prev_url, form=form)
->>>>>>> d86062cbc719bfad6a1adb8c4e7253c869db36fd
 
 from app.forms import EditProfileForm
 
